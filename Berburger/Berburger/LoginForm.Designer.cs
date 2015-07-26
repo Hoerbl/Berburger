@@ -31,9 +31,10 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.textBoxServer = new System.Windows.Forms.TextBox();
+			this.textBoxUser = new System.Windows.Forms.TextBox();
+			this.textBoxPassword = new System.Windows.Forms.TextBox();
+			this.buttonConnect = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -66,42 +67,57 @@
 			this.label3.TabIndex = 2;
 			this.label3.Text = "Password:";
 			// 
-			// textBox1
+			// textBoxServer
 			// 
-			this.textBox1.Location = new System.Drawing.Point(138, 12);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(129, 20);
-			this.textBox1.TabIndex = 3;
+			this.textBoxServer.Location = new System.Drawing.Point(138, 12);
+			this.textBoxServer.Name = "textBoxServer";
+			this.textBoxServer.Size = new System.Drawing.Size(147, 20);
+			this.textBoxServer.TabIndex = 3;
 			// 
-			// textBox2
+			// textBoxUser
 			// 
-			this.textBox2.Location = new System.Drawing.Point(138, 38);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(129, 20);
-			this.textBox2.TabIndex = 4;
+			this.textBoxUser.Location = new System.Drawing.Point(138, 38);
+			this.textBoxUser.Name = "textBoxUser";
+			this.textBoxUser.Size = new System.Drawing.Size(147, 20);
+			this.textBoxUser.TabIndex = 4;
 			// 
-			// textBox3
+			// textBoxPassword
 			// 
-			this.textBox3.Location = new System.Drawing.Point(138, 65);
-			this.textBox3.Name = "textBox3";
-			this.textBox3.PasswordChar = '*';
-			this.textBox3.Size = new System.Drawing.Size(129, 20);
-			this.textBox3.TabIndex = 5;
+			this.textBoxPassword.Location = new System.Drawing.Point(138, 65);
+			this.textBoxPassword.Name = "textBoxPassword";
+			this.textBoxPassword.PasswordChar = '*';
+			this.textBoxPassword.Size = new System.Drawing.Size(147, 20);
+			this.textBoxPassword.TabIndex = 5;
+			// 
+			// buttonConnect
+			// 
+			this.buttonConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonConnect.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.buttonConnect.Location = new System.Drawing.Point(203, 94);
+			this.buttonConnect.Name = "buttonConnect";
+			this.buttonConnect.Size = new System.Drawing.Size(81, 33);
+			this.buttonConnect.TabIndex = 6;
+			this.buttonConnect.Text = "Connect";
+			this.buttonConnect.UseVisualStyleBackColor = true;
+			this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
 			// 
 			// LoginForm
 			// 
+			this.AcceptButton = this.buttonConnect;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(341, 125);
-			this.Controls.Add(this.textBox3);
-			this.Controls.Add(this.textBox2);
-			this.Controls.Add(this.textBox1);
+			this.ClientSize = new System.Drawing.Size(296, 139);
+			this.Controls.Add(this.buttonConnect);
+			this.Controls.Add(this.textBoxPassword);
+			this.Controls.Add(this.textBoxUser);
+			this.Controls.Add(this.textBoxServer);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.MaximizeBox = false;
+			this.MaximumSize = new System.Drawing.Size(312, 178);
 			this.MinimizeBox = false;
-			this.MinimumSize = new System.Drawing.Size(297, 137);
+			this.MinimumSize = new System.Drawing.Size(312, 178);
 			this.Name = "LoginForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "LoginForm";
@@ -115,8 +131,9 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.TextBox textBox3;
+		private System.Windows.Forms.TextBox textBoxServer;
+		private System.Windows.Forms.TextBox textBoxUser;
+		private System.Windows.Forms.TextBox textBoxPassword;
+		private System.Windows.Forms.Button buttonConnect;
 	}
 }
