@@ -19,7 +19,12 @@ namespace Berburger
 
 		private void buttonConnect_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show(SqlAdapter.Connect(textBoxPassword.Text, textBoxUser.Text, textBoxServer.Text, "master").ToString());
+			if (SqlAdapter.Connect(textBoxPassword.Text, textBoxUser.Text, textBoxServer.Text, "master")) {
+				DialogResult = DialogResult.OK;
+			} else {
+				MessageBox.Show("Authentication Failed: **reason**");
+				DialogResult = DialogResult.Abort;
+			}
 		}
 	}
 }
