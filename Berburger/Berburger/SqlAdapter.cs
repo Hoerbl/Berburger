@@ -38,6 +38,22 @@ namespace Berburger
 			return -1;
 		}
 
+		public static List<string> GetResultFromCommand(SqlCommand command) {
+			command.Connection = currentConnection;
+
+			SqlDataReader reader = command.ExecuteReader();
+
+			List<string> resultList = new List<string>();
+
+			while (reader.Read())
+			{
+				resultList.Add(reader[0].ToString());
+			}
+			reader.Close();
+
+			return resultList;
+		}
+
 		public static SqlConnection GetConnection() {
 			if (IsConnected()) {
 				return currentConnection;

@@ -28,48 +28,76 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.labelTest = new System.Windows.Forms.Label();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.button1 = new System.Windows.Forms.Button();
+			this.buttonExecuteCommand = new System.Windows.Forms.Button();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.textBoxResult = new System.Windows.Forms.TextBox();
+			this.textBoxCommand = new System.Windows.Forms.TextBox();
+			this.comboBoxDatabases = new System.Windows.Forms.ComboBox();
+			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// labelTest
-			// 
-			this.labelTest.AutoSize = true;
-			this.labelTest.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.labelTest.Location = new System.Drawing.Point(12, 162);
-			this.labelTest.Name = "labelTest";
-			this.labelTest.Size = new System.Drawing.Size(89, 17);
-			this.labelTest.TabIndex = 0;
-			this.labelTest.Text = "**Databases**";
 			// 
 			// button1
 			// 
-			this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.Location = new System.Drawing.Point(15, 12);
+			resources.ApplyResources(this.button1, "button1");
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(120, 31);
-			this.button1.TabIndex = 1;
-			this.button1.Text = "Edit Tables";
 			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
+			// buttonExecuteCommand
+			// 
+			resources.ApplyResources(this.buttonExecuteCommand, "buttonExecuteCommand");
+			this.buttonExecuteCommand.Name = "buttonExecuteCommand";
+			this.buttonExecuteCommand.UseVisualStyleBackColor = true;
+			this.buttonExecuteCommand.Click += new System.EventHandler(this.buttonExecuteCommand_Click);
+			// 
+			// groupBox1
+			// 
+			resources.ApplyResources(this.groupBox1, "groupBox1");
+			this.groupBox1.Controls.Add(this.textBoxResult);
+			this.groupBox1.Controls.Add(this.textBoxCommand);
+			this.groupBox1.Controls.Add(this.buttonExecuteCommand);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.TabStop = false;
+			// 
+			// textBoxResult
+			// 
+			resources.ApplyResources(this.textBoxResult, "textBoxResult");
+			this.textBoxResult.Name = "textBoxResult";
+			// 
+			// textBoxCommand
+			// 
+			resources.ApplyResources(this.textBoxCommand, "textBoxCommand");
+			this.textBoxCommand.Name = "textBoxCommand";
+			// 
+			// comboBoxDatabases
+			// 
+			this.comboBoxDatabases.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxDatabases.FormattingEnabled = true;
+			resources.ApplyResources(this.comboBoxDatabases, "comboBoxDatabases");
+			this.comboBoxDatabases.Name = "comboBoxDatabases";
 			// 
 			// MainForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(406, 256);
+			this.Controls.Add(this.comboBoxDatabases);
+			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.button1);
-			this.Controls.Add(this.labelTest);
 			this.Name = "MainForm";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "MainForm";
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.Label labelTest;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button buttonExecuteCommand;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.TextBox textBoxCommand;
+		private System.Windows.Forms.TextBox textBoxResult;
+		private System.Windows.Forms.ComboBox comboBoxDatabases;
 	}
 }

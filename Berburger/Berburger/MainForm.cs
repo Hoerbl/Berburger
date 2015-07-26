@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -26,19 +27,26 @@ namespace Berburger
 
 			InitializeComponent();
 
-			SqlCommand command = new SqlCommand("SELECT * FROM sys.databases");
-			command.Connection = SqlAdapter.GetConnection();
+			List<string> resultList = SqlAdapter.GetResultFromCommand(new SqlCommand("SELECT * FROM sys.databases"));
 
-			SqlDataReader reader = command.ExecuteReader();
-
-			List<string> resultList = new List<string>();
-
-			while (reader.Read()) {
-				resultList.Add(reader[0].ToString());
+			foreach (var result in resultList) {
+				comboBoxDatabases.Items.Add(result);
 			}
-			reader.Close();
 
-			labelTest.Text = "Databases: " + string.Join(", ", resultList);
+			comboBoxDatabases.SelectedIndex = resultList.Count - 1;
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			Form1 editForm = new Form1();
+			editForm.Show();
+		}
+
+		private void buttonExecuteCommand_Click(object sender, EventArgs e)
+		{
+			List<string> resultList = SqlAdapter.GetResultFromCommand(new SqlCommand(textBoxCommand.Text));
+
+			textBoxResult.Text = string.Join(", ", resultList);
 		}
 	}
 }
