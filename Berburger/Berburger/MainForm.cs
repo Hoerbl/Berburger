@@ -38,7 +38,7 @@ namespace Berburger
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			Form1 editForm = new Form1();
+			EditDatabaseForm editForm = new EditDatabaseForm(comboBoxDatabases.SelectedItem.ToString());
 			editForm.Show();
 		}
 
