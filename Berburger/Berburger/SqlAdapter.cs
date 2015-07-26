@@ -37,5 +37,12 @@ namespace Berburger
 			}
 			return -1;
 		}
+
+		public static SqlConnection GetConnection() {
+			if (IsConnected()) {
+				return currentConnection;
+			}
+			return null;
+		}
 	}
 }
