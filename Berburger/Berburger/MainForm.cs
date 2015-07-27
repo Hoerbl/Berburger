@@ -48,5 +48,10 @@ namespace Berburger
 
 			textBoxResult.Text = string.Join(", ", resultList);
 		}
+
+		private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			SqlAdapter.Disconnect();
+		}
 	}
 }

@@ -60,5 +60,9 @@ namespace Berburger
 			}
 			return null;
 		}
+
+		public static void Disconnect() {
+			currentConnection.Close();
+		}
 	}
 }

@@ -86,6 +86,7 @@
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.button1);
 			this.Name = "MainForm";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
