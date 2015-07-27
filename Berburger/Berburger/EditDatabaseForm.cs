@@ -13,8 +13,12 @@ namespace Berburger
 {
     public partial class EditDatabaseForm : Form
     {
+		private string database;
+
 		public EditDatabaseForm(string database) : base()
 		{
+			this.database = database;
+
 			InitializeComponent();
 
 			List<string> tables = SqlAdapter.GetResultFromCommand(new SqlCommand("SELECT TABLE_NAME FROM " + database + ".INFORMATION_SCHEMA.Tables "));
@@ -26,9 +30,23 @@ namespace Berburger
 			comboBoxTables.SelectedIndex = 0;
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		private void buttonDelete_Click(object sender, EventArgs e)
         {
-
+			
         }
-    }
+
+		private void comboBoxTables_SelectedValueChanged(object sender, EventArgs e)
+		{
+			dataGridView1.Columns.Clear();
+
+			List<string> columns = SqlAdapter.GetResultFromCommand(new SqlCommand("use " + database + "; SELECT COLUMN_NAME,* FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "'"));
+
+			foreach (string s in columns)
+			{
+				dataGridView1.Columns.Add("column_" + s, s);
+			}
+
+			labelColumns.Text = "Columns: " + columns.Count;
+		}
+	}
 }
