@@ -36,7 +36,7 @@ namespace Berburger
 			comboBoxDatabases.SelectedIndex = resultList.Count - 1;
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		private void buttonEditDatabase_Click(object sender, EventArgs e)
 		{
 			EditDatabaseForm editForm = new EditDatabaseForm(comboBoxDatabases.SelectedItem.ToString());
 			editForm.Show();
@@ -44,6 +44,7 @@ namespace Berburger
 
 		private void buttonExecuteCommand_Click(object sender, EventArgs e)
 		{
+
 			List<string> resultList = SqlAdapter.GetResultFromCommand(new SqlCommand(textBoxCommand.Text));
 
 			textBoxResult.Text = string.Join(", ", resultList);

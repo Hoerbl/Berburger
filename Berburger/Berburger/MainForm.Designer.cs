@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-			this.button1 = new System.Windows.Forms.Button();
+			this.buttonEditTables = new System.Windows.Forms.Button();
 			this.buttonExecuteCommand = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.textBoxResult = new System.Windows.Forms.TextBox();
@@ -38,12 +38,12 @@
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// button1
+			// buttonEditTables
 			// 
-			resources.ApplyResources(this.button1, "button1");
-			this.button1.Name = "button1";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
+			resources.ApplyResources(this.buttonEditTables, "buttonEditTables");
+			this.buttonEditTables.Name = "buttonEditTables";
+			this.buttonEditTables.UseVisualStyleBackColor = true;
+			this.buttonEditTables.Click += new System.EventHandler(this.buttonEditDatabase_Click);
 			// 
 			// buttonExecuteCommand
 			// 
@@ -84,7 +84,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.comboBoxDatabases);
 			this.Controls.Add(this.groupBox1);
-			this.Controls.Add(this.button1);
+			this.Controls.Add(this.buttonEditTables);
 			this.Name = "MainForm";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
 			this.groupBox1.ResumeLayout(false);
@@ -94,7 +94,7 @@
 		}
 
 		#endregion
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button buttonEditTables;
 		private System.Windows.Forms.Button buttonExecuteCommand;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.TextBox textBoxCommand;
