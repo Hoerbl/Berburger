@@ -44,6 +44,7 @@ namespace Berburger
 
 		private void buttonExecuteCommand_Click(object sender, EventArgs e)
 		{
+			SqlAdapter.RunCommand(new SqlCommand("use " + comboBoxDatabases.SelectedItem.ToString()));
 
 			List<string> resultList = SqlAdapter.GetResultFromCommand(new SqlCommand(textBoxCommand.Text));
 
