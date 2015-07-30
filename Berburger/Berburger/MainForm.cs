@@ -46,7 +46,7 @@ namespace Berburger
 		{
 			SqlAdapter.RunCommand(new SqlCommand("use " + comboBoxDatabases.SelectedItem.ToString()));
 
-			List<string> resultList = SqlAdapter.GetResultFromCommand(new SqlCommand(textBoxCommand.Text));
+			var resultList = SqlAdapter.GetMultipleRowsFromCommand(new SqlCommand(textBoxCommand.Text));
 
 			textBoxResult.Text = string.Join(", ", resultList);
 		}
@@ -54,6 +54,11 @@ namespace Berburger
 		private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			SqlAdapter.Disconnect();
+		}
+
+		private void buttonEditData_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

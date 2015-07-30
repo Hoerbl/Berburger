@@ -35,6 +35,7 @@
 			this.textBoxResult = new System.Windows.Forms.TextBox();
 			this.textBoxCommand = new System.Windows.Forms.TextBox();
 			this.comboBoxDatabases = new System.Windows.Forms.ComboBox();
+			this.buttonEditData = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -78,10 +79,18 @@
 			resources.ApplyResources(this.comboBoxDatabases, "comboBoxDatabases");
 			this.comboBoxDatabases.Name = "comboBoxDatabases";
 			// 
+			// buttonEditData
+			// 
+			resources.ApplyResources(this.buttonEditData, "buttonEditData");
+			this.buttonEditData.Name = "buttonEditData";
+			this.buttonEditData.UseVisualStyleBackColor = true;
+			this.buttonEditData.Click += new System.EventHandler(this.buttonEditData_Click);
+			// 
 			// MainForm
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.buttonEditData);
 			this.Controls.Add(this.comboBoxDatabases);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.buttonEditTables);
@@ -100,5 +109,6 @@
 		private System.Windows.Forms.TextBox textBoxCommand;
 		private System.Windows.Forms.TextBox textBoxResult;
 		private System.Windows.Forms.ComboBox comboBoxDatabases;
+		private System.Windows.Forms.Button buttonEditData;
 	}
 }
