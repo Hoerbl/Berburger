@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Berburger
 {
@@ -31,14 +32,17 @@ namespace Berburger
 		}
 
 		public static int RunCommand(SqlCommand command) {
-			if (IsConnected()) {
-				command.Connection = currentConnection;
-				return command.ExecuteNonQuery();
+			if (!IsConnected()) {
+				throw new InvalidOperationException("Not connected to the server");
 			}
-			return -1;
+			command.Connection = currentConnection;
+			return command.ExecuteNonQuery();
 		}
 
 		public static List<string> GetResultFromCommand(SqlCommand command) {
+			if (!IsConnected()) {
+				throw new InvalidOperationException("Not connected to the server");
+			}
 			command.Connection = currentConnection;
 
 			SqlDataReader reader = command.ExecuteReader();
@@ -52,6 +56,48 @@ namespace Berburger
 			reader.Close();
 
 			return resultList;
+		}
+
+		/// <summary>
+		/// First list entry is the header row and the following entries are data
+		/// </summary>
+		/// <param name="command"></param>
+		/// <returns></returns>
+		public static List<string[]> GetMultipleRowsFromCommand(SqlCommand command) {
+			command.Connection = currentConnection;
+
+			List<string[]> rows = new List<string[]>();
+			try
+			{
+				SqlDataReader reader = command.ExecuteReader();
+
+				string[] columnHead = new string[reader.FieldCount];
+				// get columns
+				for (int i = 0; i < reader.FieldCount;i++) {
+					columnHead[i] = reader.GetName(i);
+                }
+				rows.Add(columnHead);
+
+				// get data
+				while (reader.Read())
+				{
+					string[] row = new string[reader.FieldCount];
+
+					for (int i = 0; i < reader.FieldCount; i++)
+					{
+						row[i] = reader.GetValue(i).ToString();
+					}
+
+					rows.Add(row);
+				}
+				reader.Close();
+			} catch (Exception e)
+			{
+				MessageBox.Show(e.Message + "\nSTACKTRACE:\n\n" + e.StackTrace);
+				return null;
+			}
+
+			return rows;
 		}
 
 		public static SqlConnection GetConnection() {

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace Berburger
 {
@@ -18,11 +19,12 @@ namespace Berburger
 		public EditDatabaseForm(string database) : base()
 		{
 			this.database = database;
+			SqlAdapter.RunCommand(new SqlCommand("use " + database));
 
 			InitializeComponent();
 
 			List<string> tables = SqlAdapter.GetResultFromCommand(new SqlCommand("SELECT TABLE_NAME FROM " + database + ".INFORMATION_SCHEMA.Tables "));
-
+			
 			foreach (var table in tables) {
 				comboBoxTables.Items.Add(table);
 			}
@@ -33,20 +35,28 @@ namespace Berburger
 		private void buttonDelete_Click(object sender, EventArgs e)
         {
 			
-        }
+		}
 
 		private void comboBoxTables_SelectedValueChanged(object sender, EventArgs e)
 		{
 			dataGridView1.Columns.Clear();
+			
+			List<string> columns = SqlAdapter.GetResultFromCommand(new SqlCommand("SELECT COLUMN_NAME,* FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "'"));
 
-			List<string> columns = SqlAdapter.GetResultFromCommand(new SqlCommand("use " + database + "; SELECT COLUMN_NAME,* FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "'"));
+			labelColumns.Text = "Columns: " + columns.Count;
 
-			foreach (string s in columns)
+			List<string[]> data = SqlAdapter.GetMultipleRowsFromCommand(new SqlCommand("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, IS_NULLABLE, COLUMN_DEFAULT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "' ORDER BY ORDINAL_POSITION ASC; "));
+			//first array is header
+
+			foreach (string s in data.First())
 			{
 				dataGridView1.Columns.Add("column_" + s, s);
 			}
 
-			labelColumns.Text = "Columns: " + columns.Count;
+			for (int i = 1; i < data.Count; i++)
+			{
+				dataGridView1.Rows.Add(data[i]);
+			}
 		}
 	}
 }
