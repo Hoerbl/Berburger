@@ -43,6 +43,13 @@ namespace Berburger
 			editForm.Show();
 		}
 
+		private void buttonEditData_Click(object sender, EventArgs e)
+		{
+			EditDatabaseForm editForm = new EditDatabaseForm(comboBoxDatabases.SelectedItem.ToString(), new string[] { "a" });
+			editForm.Owner = this;
+			editForm.Show();
+		}
+
 		private void buttonExecuteCommand_Click(object sender, EventArgs e)
 		{
 			SqlAdapter.RunCommand(new SqlCommand("use " + comboBoxDatabases.SelectedItem.ToString()));
@@ -55,11 +62,6 @@ namespace Berburger
 		private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			SqlAdapter.Disconnect();
-		}
-
-		private void buttonEditData_Click(object sender, EventArgs e)
-		{
-
 		}
 	}
 }
