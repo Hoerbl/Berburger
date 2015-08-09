@@ -66,32 +66,36 @@ namespace Berburger
 
 			labelColumns.Text = "Columns: " + columns.Count;
 
+			List<string[]> data = null;
+			//first array is header
+
 			if (showData) {
-				List<string[]> data = SqlAdapter.GetMultipleRowsFromCommand(new SqlCommand("SELECT * FROM " + comboBoxTables.SelectedItem.ToString()));
-
-				foreach (string s in data.First())
-				{
-					dataGridView1.Columns.Add("column_" + s, s);
-				}
-
-				for (int i = 1; i < data.Count; i++)
-				{
-					dataGridView1.Rows.Add(data[i]);
-				}
+				data = SqlAdapter.GetMultipleRowsFromCommand(new SqlCommand("SELECT * FROM " + comboBoxTables.SelectedItem.ToString()));
 			} else {
+				data = SqlAdapter.GetMultipleRowsFromCommand(new SqlCommand("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, IS_NULLABLE, COLUMN_DEFAULT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "' ORDER BY ORDINAL_POSITION ASC; "));	
+			}
+
+			foreach (string columnName in data.First())
+			{
+				DataGridViewCell cellTemplate = new DataGridViewTextBoxCell();
+
+				var isNullable = SqlAdapter.GetResultFromCommand(new SqlCommand("SELECT IS_NULLABLE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "' and COLUMN_NAME = '" + columnName + "'"));
 				
-				List<string[]> data = SqlAdapter.GetMultipleRowsFromCommand(new SqlCommand("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, IS_NULLABLE, COLUMN_DEFAULT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "' ORDER BY ORDINAL_POSITION ASC; "));
-				//first array is header
-
-				foreach (string s in data.First())
+				if (isNullable.Count == 1 && isNullable[0] == "YES")
 				{
-					dataGridView1.Columns.Add("column_" + s, s);
+					cellTemplate.Style.BackColor = Color.LightCyan;
 				}
 
-				for (int i = 1; i < data.Count; i++)
-				{
-					dataGridView1.Rows.Add(data[i]);
-				}
+				DataGridViewColumn column = new DataGridViewColumn(cellTemplate);
+
+				column.HeaderText = columnName;
+
+				dataGridView1.Columns.Add(column);
+			}
+
+			for (int i = 1; i < data.Count; i++)
+			{
+				dataGridView1.Rows.Add(data[i]);
 			}
 		}
 	}

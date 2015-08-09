@@ -33,24 +33,25 @@
 			this.comboBoxTables = new System.Windows.Forms.ComboBox();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.labelColumns = new System.Windows.Forms.Label();
+			this.buttonAddTable = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// buttonDelete
 			// 
-			this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonDelete.Location = new System.Drawing.Point(684, 449);
+			this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonDelete.Location = new System.Drawing.Point(894, 11);
 			this.buttonDelete.Margin = new System.Windows.Forms.Padding(2);
 			this.buttonDelete.Name = "buttonDelete";
 			this.buttonDelete.Size = new System.Drawing.Size(115, 24);
 			this.buttonDelete.TabIndex = 0;
-			this.buttonDelete.Text = "Löschen";
+			this.buttonDelete.Text = "Delete Table";
 			this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
 			// 
 			// change_button
 			// 
 			this.change_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.change_button.Location = new System.Drawing.Point(803, 449);
+			this.change_button.Location = new System.Drawing.Point(903, 498);
 			this.change_button.Margin = new System.Windows.Forms.Padding(2);
 			this.change_button.Name = "change_button";
 			this.change_button.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -76,14 +77,15 @@
 			this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+			this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+			this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Location = new System.Drawing.Point(11, 44);
 			this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
 			this.dataGridView1.RowTemplate.Height = 24;
-			this.dataGridView1.Size = new System.Drawing.Size(902, 401);
+			this.dataGridView1.Size = new System.Drawing.Size(1002, 450);
 			this.dataGridView1.TabIndex = 3;
 			// 
 			// labelColumns
@@ -96,17 +98,29 @@
 			this.labelColumns.TabIndex = 4;
 			this.labelColumns.Text = "Columns: 0";
 			// 
+			// buttonAddTable
+			// 
+			this.buttonAddTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonAddTable.Location = new System.Drawing.Point(775, 12);
+			this.buttonAddTable.Margin = new System.Windows.Forms.Padding(2);
+			this.buttonAddTable.Name = "buttonAddTable";
+			this.buttonAddTable.Size = new System.Drawing.Size(115, 24);
+			this.buttonAddTable.TabIndex = 5;
+			this.buttonAddTable.Text = "Add Table";
+			// 
 			// EditDatabaseForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(920, 483);
+			this.ClientSize = new System.Drawing.Size(1020, 532);
+			this.Controls.Add(this.buttonAddTable);
 			this.Controls.Add(this.labelColumns);
 			this.Controls.Add(this.dataGridView1);
 			this.Controls.Add(this.comboBoxTables);
 			this.Controls.Add(this.change_button);
 			this.Controls.Add(this.buttonDelete);
 			this.Margin = new System.Windows.Forms.Padding(2);
+			this.MinimumSize = new System.Drawing.Size(584, 408);
 			this.Name = "EditDatabaseForm";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -124,6 +138,7 @@
         private System.Windows.Forms.ComboBox comboBoxTables;
         private System.Windows.Forms.DataGridView dataGridView1;
 		private System.Windows.Forms.Label labelColumns;
+		private System.Windows.Forms.Button buttonAddTable;
 	}
 }
 
