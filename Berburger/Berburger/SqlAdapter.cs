@@ -84,8 +84,17 @@ namespace Berburger
 			return command.ExecuteNonQuery();
 		}
 
+		/// <summary>
+		/// Gets a DataTable
+		/// </summary>
+		/// <param name="command">Command to execute</param>
+		/// <returns>DataTable with contents</returns>
 		public static DataTable GetDataTable(SqlCommand command)
 		{
+			if (!IsConnected())
+			{
+				throw new InvalidOperationException("Not connected to the server");
+			}
 			var sqlDataAdapter = new SqlDataAdapter(command);
 			var datatable = new DataTable();
 
@@ -94,6 +103,17 @@ namespace Berburger
 			sqlDataAdapter.Fill(datatable);
 
 			return datatable;
+		}
+
+		/// <summary>
+		/// Gets the result from a query with only 1 possible result (Scalar)
+		/// </summary>
+		/// <param name="command"></param>
+		/// <returns></returns>
+		public static object GetResult(SqlCommand command)
+		{
+			command.Connection = currentConnection;
+			return command.ExecuteScalar();
 		}
 
 		public static List<string[]> GetMultipleRowsFromCommand(SqlCommand command) {
@@ -131,13 +151,6 @@ namespace Berburger
 			}
 
 			return rows;
-		}
-
-		public static SqlConnection GetConnection() {
-			if (IsConnected()) {
-				return currentConnection;
-			}
-			return null;
 		}
 	}
 }

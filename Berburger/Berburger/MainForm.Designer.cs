@@ -36,6 +36,7 @@
 			this.textBoxCommand = new System.Windows.Forms.TextBox();
 			this.comboBoxDatabases = new System.Windows.Forms.ComboBox();
 			this.buttonEditData = new System.Windows.Forms.Button();
+			this.labelTablesCount = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -78,6 +79,7 @@
 			this.comboBoxDatabases.FormattingEnabled = true;
 			resources.ApplyResources(this.comboBoxDatabases, "comboBoxDatabases");
 			this.comboBoxDatabases.Name = "comboBoxDatabases";
+			this.comboBoxDatabases.SelectedIndexChanged += new System.EventHandler(this.comboBoxDatabases_SelectedIndexChanged);
 			// 
 			// buttonEditData
 			// 
@@ -86,10 +88,16 @@
 			this.buttonEditData.UseVisualStyleBackColor = true;
 			this.buttonEditData.Click += new System.EventHandler(this.buttonEditData_Click);
 			// 
+			// labelTablesCount
+			// 
+			resources.ApplyResources(this.labelTablesCount, "labelTablesCount");
+			this.labelTablesCount.Name = "labelTablesCount";
+			// 
 			// MainForm
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.labelTablesCount);
 			this.Controls.Add(this.buttonEditData);
 			this.Controls.Add(this.comboBoxDatabases);
 			this.Controls.Add(this.groupBox1);
@@ -99,6 +107,7 @@
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -110,5 +119,6 @@
 		private System.Windows.Forms.TextBox textBoxResult;
 		private System.Windows.Forms.ComboBox comboBoxDatabases;
 		private System.Windows.Forms.Button buttonEditData;
+		private System.Windows.Forms.Label labelTablesCount;
 	}
 }

@@ -63,5 +63,10 @@ namespace Berburger
 		{
 			SqlAdapter.Disconnect();
 		}
+
+		private void comboBoxDatabases_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			labelTablesCount.Text = SqlAdapter.GetResult(new SqlCommand("SELECT count(*) FROM " + comboBoxDatabases.SelectedItem.ToString() + ".INFORMATION_SCHEMA.Tables ")) + " Tables";
+		}
 	}
 }
