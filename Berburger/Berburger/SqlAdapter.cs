@@ -96,25 +96,6 @@ namespace Berburger
 			return datatable;
 		}
 
-		public static List<string> GetResultFromCommand(SqlCommand command) {
-			if (!IsConnected()) {
-				throw new InvalidOperationException("Not connected to the server");
-			}
-			command.Connection = currentConnection;
-
-			SqlDataReader reader = command.ExecuteReader();
-
-			List<string> resultList = new List<string>();
-
-			while (reader.Read())
-			{
-				resultList.Add(reader[0].ToString());
-			}
-			reader.Close();
-
-			return resultList;
-		}
-		
 		public static List<string[]> GetMultipleRowsFromCommand(SqlCommand command) {
 			command.Connection = currentConnection;
 

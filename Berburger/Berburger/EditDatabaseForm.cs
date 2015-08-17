@@ -43,13 +43,16 @@ namespace Berburger
 			loadTables();
 		}
 
+		/// <summary>
+		/// Loads the tables the user can edit for the combobox
+		/// </summary>
 		void loadTables()
 		{
-			List<string> tables = SqlAdapter.GetResultFromCommand(new SqlCommand("SELECT TABLE_NAME FROM " + database + ".INFORMATION_SCHEMA.Tables "));
+			var tables = SqlAdapter.GetDataTable(new SqlCommand("SELECT TABLE_NAME FROM " + database + ".INFORMATION_SCHEMA.Tables "));
 
-			foreach (var table in tables)
+			foreach (DataRow table in tables.Rows)
 			{
-				comboBoxTables.Items.Add(table);
+				comboBoxTables.Items.Add(table["table_name"]);
 			}
 
 			comboBoxTables.SelectedIndex = 0;
@@ -64,9 +67,9 @@ namespace Berburger
 		{
 			dataGridView1.Columns.Clear();
 
-			List<string> columns = SqlAdapter.GetResultFromCommand(new SqlCommand("SELECT COLUMN_NAME,* FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "'"));
+			var columns = SqlAdapter.GetDataTable(new SqlCommand("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "'"));
 
-			labelColumns.Text = "Columns: " + columns.Count;
+			labelColumns.Text = "Columns: " + columns.Rows.Count;
 
 			string command = "";
 			if (showData)
@@ -81,6 +84,7 @@ namespace Berburger
 			var dataTable = SqlAdapter.GetDataTable(new SqlCommand(command));
 
 			dataGridView1.DataSource = dataTable;
+
 		}
 
 		private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
