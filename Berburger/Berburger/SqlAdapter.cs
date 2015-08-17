@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Data;
 
 namespace Berburger
 {
@@ -81,6 +82,18 @@ namespace Berburger
 			}
 			command.Connection = currentConnection;
 			return command.ExecuteNonQuery();
+		}
+
+		public static DataTable GetDataTable(SqlCommand command)
+		{
+			var sqlDataAdapter = new SqlDataAdapter(command);
+			var datatable = new DataTable();
+
+			sqlDataAdapter.SelectCommand.Connection = currentConnection;
+
+			sqlDataAdapter.Fill(datatable);
+
+			return datatable;
 		}
 
 		public static List<string> GetResultFromCommand(SqlCommand command) {

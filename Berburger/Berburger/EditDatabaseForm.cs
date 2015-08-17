@@ -12,8 +12,8 @@ using System.Diagnostics;
 
 namespace Berburger
 {
-    public partial class EditDatabaseForm : Form
-    {
+	public partial class EditDatabaseForm : Form
+	{
 		private string database;
 		private bool showData = false;
 		private string[] columns;
@@ -30,7 +30,8 @@ namespace Berburger
 			loadTables();
 		}
 
-		public EditDatabaseForm(string database, string[] columns) {
+		public EditDatabaseForm(string database, string[] columns)
+		{
 			this.database = database;
 			this.columns = columns;
 			SqlAdapter.RunCommand(new SqlCommand("use " + database));
@@ -42,7 +43,8 @@ namespace Berburger
 			loadTables();
 		}
 
-		void loadTables() {
+		void loadTables()
+		{
 			List<string> tables = SqlAdapter.GetResultFromCommand(new SqlCommand("SELECT TABLE_NAME FROM " + database + ".INFORMATION_SCHEMA.Tables "));
 
 			foreach (var table in tables)
@@ -54,8 +56,8 @@ namespace Berburger
 		}
 
 		private void buttonDelete_Click(object sender, EventArgs e)
-        {
-			
+		{
+
 		}
 
 		private void comboBoxTables_SelectedValueChanged(object sender, EventArgs e)
@@ -66,37 +68,30 @@ namespace Berburger
 
 			labelColumns.Text = "Columns: " + columns.Count;
 
-			List<string[]> data = null;
-			//first array is header
-
-			if (showData) {
-				data = SqlAdapter.GetMultipleRowsFromCommand(new SqlCommand("SELECT * FROM " + comboBoxTables.SelectedItem.ToString()));
-			} else {
-				data = SqlAdapter.GetMultipleRowsFromCommand(new SqlCommand("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, IS_NULLABLE, COLUMN_DEFAULT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "' ORDER BY ORDINAL_POSITION ASC; "));	
-			}
-
-			foreach (string columnName in data.First())
+			string command = "";
+			if (showData)
 			{
-				DataGridViewCell cellTemplate = new DataGridViewTextBoxCell();
-
-				var isNullable = SqlAdapter.GetResultFromCommand(new SqlCommand("SELECT IS_NULLABLE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "' and COLUMN_NAME = '" + columnName + "'"));
-				
-				if (isNullable.Count == 1 && isNullable[0] == "YES")
-				{
-					cellTemplate.Style.BackColor = Color.LightCyan;
-				}
-
-				DataGridViewColumn column = new DataGridViewColumn(cellTemplate);
-
-				column.HeaderText = columnName;
-
-				dataGridView1.Columns.Add(column);
+				command = "SELECT * FROM " + comboBoxTables.SelectedItem.ToString();
 			}
-
-			for (int i = 1; i < data.Count; i++)
+			else
 			{
-				dataGridView1.Rows.Add(data[i]);
+				command = "SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, IS_NULLABLE, COLUMN_DEFAULT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "' ORDER BY ORDINAL_POSITION ASC; ";
 			}
+
+			var dataTable = SqlAdapter.GetDataTable(new SqlCommand(command));
+
+			dataGridView1.DataSource = dataTable;
+		}
+
+		private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+		{
+			Debug.WriteLine("CellEndEdit");
+
+		}
+
+		private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+		{
+			Debug.WriteLine("RowsAdded");
 		}
 	}
 }
