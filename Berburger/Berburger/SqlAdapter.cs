@@ -11,10 +11,24 @@ namespace Berburger
 {
 	static class SqlAdapter
 	{
+		/// <summary>
+		/// The username used to connect to the server
+		/// </summary>
 		public static string UserName { get; private set; }
+		/// <summary>
+		/// Currently used connnection
+		/// </summary>
 		static SqlConnection currentConnection = null;
-		
-		public static bool Connect(string password, string userName, string server, string database)
+
+		/// <summary>
+		/// Connects the SqlAdapter to a specified server
+		/// </summary>
+		/// <param name="server">Server IP-Address or URL</param>
+		/// <param name="userName">Username</param>
+		/// <param name="password">Plaintext password</param>
+		/// <param name="database">Databasename to connect to</param>
+		/// <returns>True if successful, else false</returns>
+		public static bool Connect(string server, string userName, string password, string database)
 		{
 			currentConnection = new SqlConnection(string.Format("user id={0};password={1};server={2};Trusted_Connection=no;database={3};connection timeout=10", userName, password, server, database));
 			// Trusted_Connection=no is important to be able to login onto another machine
@@ -27,10 +41,40 @@ namespace Berburger
 			return true;
 		}
 
+		/// <summary>
+		/// Connects the SqlAdapter to a specified server and the master database
+		/// </summary>
+		/// <param name="server">Server IP-Address or URL</param>
+		/// <param name="userName">Username</param>
+		/// <param name="password">Plaintext password</param>
+		/// <returns>True if successful, else false</returns>
+		/// <returns></returns>
+		public static bool Connect(string server, string userName, string password)
+		{
+			return Connect(server, userName, password, "master");
+		}
+
+		/// <summary>
+		/// Closes the connection to the server
+		/// </summary>
+		public static void Disconnect()
+		{
+			currentConnection.Close();
+		}
+
+		/// <summary>
+		/// Check if connected
+		/// </summary>
+		/// <returns>True if connection is open, else false</returns>
 		public static bool IsConnected() {
 			return currentConnection.State == System.Data.ConnectionState.Open;
 		}
 
+		/// <summary>
+		/// Executes the given command
+		/// </summary>
+		/// <param name="command">Sql command</param>
+		/// <returns>Affected rows</returns>
 		public static int RunCommand(SqlCommand command) {
 			if (!IsConnected()) {
 				throw new InvalidOperationException("Not connected to the server");
@@ -57,12 +101,7 @@ namespace Berburger
 
 			return resultList;
 		}
-
-		/// <summary>
-		/// First list entry is the header row and the following entries are data
-		/// </summary>
-		/// <param name="command"></param>
-		/// <returns></returns>
+		
 		public static List<string[]> GetMultipleRowsFromCommand(SqlCommand command) {
 			command.Connection = currentConnection;
 
@@ -105,10 +144,6 @@ namespace Berburger
 				return currentConnection;
 			}
 			return null;
-		}
-
-		public static void Disconnect() {
-			currentConnection.Close();
 		}
 	}
 }
