@@ -27,13 +27,13 @@ namespace Berburger
 
 			InitializeComponent();
 
-			List<string> resultList = SqlAdapter.GetResultFromCommand(new SqlCommand("SELECT * FROM sys.databases"));
-
-			foreach (var result in resultList) {
-				comboBoxDatabases.Items.Add(result);
+			var databases = SqlAdapter.GetDataTable(new SqlCommand("SELECT name FROM sys.databases"));
+			
+			foreach (DataRow result in databases.Rows) {
+				comboBoxDatabases.Items.Add(result["name"]);
 			}
 
-			comboBoxDatabases.SelectedIndex = resultList.Count - 1;
+			comboBoxDatabases.SelectedIndex = databases.Rows.Count - 1;
 		}
 
 		private void buttonEditDatabase_Click(object sender, EventArgs e)
