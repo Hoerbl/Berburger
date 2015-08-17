@@ -67,9 +67,9 @@ namespace Berburger
 		{
 			dataGridView1.Columns.Clear();
 
-			var columns = SqlAdapter.GetDataTable(new SqlCommand("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "'"));
+			var amountColumns = SqlAdapter.GetResult(new SqlCommand("SELECT count(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "'"));
 
-			labelColumns.Text = "Columns: " + columns.Rows.Count;
+			labelColumns.Text = "Columns: " + amountColumns;
 
 			string command = "";
 			if (showData)
