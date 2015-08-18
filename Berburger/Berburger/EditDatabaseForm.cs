@@ -63,6 +63,11 @@ namespace Berburger
 
 		}
 
+		/// <summary>
+		/// When a different table gets selected change the amount of columns and the content for the DataGridView
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void comboBoxTables_SelectedValueChanged(object sender, EventArgs e)
 		{
 			dataGridView1.Columns.Clear();
@@ -71,6 +76,7 @@ namespace Berburger
 
 			labelColumns.Text = "Columns: " + amountColumns;
 
+			// update datagridview1
 			string command = "";
 			if (showData)
 			{
@@ -82,9 +88,20 @@ namespace Berburger
 			}
 
 			var dataTable = SqlAdapter.GetDataTable(new SqlCommand(command));
+			
+			DataTable isNullable = SqlAdapter.GetDataTable(new SqlCommand("SELECT COLUMN_NAME, IS_NULLABLE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + comboBoxTables.SelectedItem.ToString() + "'")); // COLUMN_NAME = '" + columnName + "'"
 
 			dataGridView1.DataSource = dataTable;
 
+			// color columns which are essential
+			foreach (DataRow dr in isNullable.Rows)
+			{
+				Debug.WriteLine("here: " + dr["COLUMN_NAME"]);
+				if (dr["IS_NULLABLE"].ToString() == "NO")
+				{
+					dataGridView1.Columns[dr["COLUMN_NAME"].ToString()].DefaultCellStyle.BackColor = Color.LightCyan;
+				}
+			}
 		}
 
 		private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
