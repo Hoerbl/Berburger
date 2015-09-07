@@ -17,14 +17,12 @@ namespace Berburger
 		public MainForm()
 		{
 			LoginForm login = new LoginForm();
-			login.ShowDialog();
-
-			if (login.DialogResult == DialogResult.Abort) {
-				Close();
-			} else if (login.DialogResult == DialogResult.OK) {
-				login.Close();
+			
+			while (login.DialogResult != DialogResult.OK)
+			{
+				login.ShowDialog();
 			}
-
+			login.Close();
 			InitializeComponent();
 
 			var databases = SqlAdapter.GetDataTable(new SqlCommand("SELECT name FROM sys.databases"));

@@ -29,17 +29,11 @@ namespace Berburger
 		/// <param name="password">Plaintext password</param>
 		/// <param name="database">Databasename to connect to</param>
 		/// <returns>True if successful, else false</returns>
-		public static bool Connect(string server, string userName, string password, string database)
+		public static void Connect(string server, string userName, string password, string database)
 		{
 			currentConnection = new SqlConnection(string.Format("user id={0};password={1};server={2};Trusted_Connection=no;database={3};connection timeout=10", userName, password, server, database));
 			// Trusted_Connection=no is important to be able to login onto another machine
-			try {
-				currentConnection.Open();
-			} catch (Exception e) {
-				MessageBox.Show(e.Message);
-				return false;
-			}
-			return true;
+			currentConnection.Open();
 		}
 
 		/// <summary>
@@ -50,9 +44,9 @@ namespace Berburger
 		/// <param name="password">Plaintext password</param>
 		/// <returns>True if successful, else false</returns>
 		/// <returns></returns>
-		public static bool Connect(string server, string userName, string password)
+		public static void Connect(string server, string userName, string password)
 		{
-			return Connect(server, userName, password, "master");
+			Connect(server, userName, password, "master");
 		}
 
 		/// <summary>

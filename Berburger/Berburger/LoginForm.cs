@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Berburger
@@ -34,12 +29,22 @@ namespace Berburger
 
 		private void buttonConnect_Click(object sender, EventArgs e)
 		{
-			if (SqlAdapter.Connect(textBoxServer.Text, textBoxUser.Text, textBoxPassword.Text, "master")) {
+			try
+			{
+				SqlAdapter.Connect(textBoxServer.Text, textBoxUser.Text, textBoxPassword.Text);
 				DialogResult = DialogResult.OK;
-			} else {
-				MessageBox.Show("Authentication Failed: **reason**");
+			} catch (SqlException ex)
+			{
+				MessageBox.Show(ex.Message);
 				DialogResult = DialogResult.Abort;
+			} catch (Exception ex)
+			{
+				Debug.WriteLine(ex.Message);
+				MessageBox.Show("here: " + ex.GetType());
+				
+				MessageBox.Show("Authentication Failed: **reason**");
 			}
+
 			Settings.SetProperty("lastServer", textBoxServer.Text);
 			Settings.SetProperty("lastUser", textBoxUser.Text);
 			Settings.SaveConfig();
