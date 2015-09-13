@@ -1,23 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Security.Cryptography;
-using System.Windows.Forms;
 
 namespace Berburger
 {
 	/// <summary>
-	/// Default Settings for The-Thing and settings handler
+	/// Settings manager
 	/// </summary>
 	public static class Settings
 	{
+		/// <summary>
+		/// Path which contains the config file
+		/// </summary>
 		static string path_programFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Berburger");
+		/// <summary>
+		/// Configuration file path
+		/// </summary>
 		static string path_configFile = Path.Combine(path_programFolder, "config.txt");
 		
+		/// <summary>
+		/// Dictionary of values accessed by properties
+		/// </summary>
 		public static Dictionary<string, string> config = new Dictionary<string, string>();
 		
+		/// <summary>
+		/// Create paths if they don't exist and load the dictionary
+		/// </summary>
 		public static void LoadSettings()
 		{
 			config.Clear();
@@ -126,6 +135,11 @@ namespace Berburger
 			return writeLines(list.ToArray(), path_configFile);
 		}
 		
+		/// <summary>
+		/// Returns the lines from the given file
+		/// </summary>
+		/// <param name="strPath">Path to the file</param>
+		/// <returns>Array of lines</returns>
 		static string[] getLines(string strPath)
 		{
 			string[] lines;
@@ -137,12 +151,18 @@ namespace Berburger
 			return lines;
 		}
 		
+		/// <summary>
+		/// Writes the lines to the given file
+		/// </summary>
+		/// <param name="lines">Lines to write</param>
+		/// <param name="strPath">Path to file</param>
+		/// <returns>True if success, false otherwise</returns>
 		static bool writeLines(string[] lines, string strPath)
 		{
 			try {
 				File.WriteAllLines(strPath, lines);
 			} catch (Exception) {
-				MessageBox.Show("Can't write to " + strPath);
+				Debug.WriteLine("Can't write to " + strPath);
 				return false;
 			}
 			return true;
