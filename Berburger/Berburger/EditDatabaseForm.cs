@@ -97,7 +97,7 @@ namespace Berburger
 			foreach (DataRow dr in isNullable.Rows)
 			{
 				Debug.WriteLine("here: " + dr["COLUMN_NAME"]);
-				if (dr["IS_NULLABLE"].ToString() == "NO")
+				if (dr["IS_NULLABLE"].ToString() == "NO" && showData)
 				{
 					dataGridView1.Columns[dr["COLUMN_NAME"].ToString()].DefaultCellStyle.BackColor = Color.LightCyan;
 				}
