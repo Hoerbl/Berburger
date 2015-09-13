@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Berburger
@@ -9,8 +10,8 @@ namespace Berburger
 	{
 		public MainForm()
 		{
-			connectToServer();
 			InitializeComponent();
+			connectToServer();
 			loadDatabasesFromServer();
 		}
 
@@ -43,6 +44,9 @@ namespace Berburger
 				}
 			}
 			login.Close();
+
+			labelServer.Text = Settings.GetValue("lastServer");
+			labelUser.Text = Settings.GetValue("lastUser");
 		}
 
 		private void buttonEditDatabase_Click(object sender, EventArgs e)

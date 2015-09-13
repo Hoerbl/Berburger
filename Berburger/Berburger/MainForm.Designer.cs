@@ -38,7 +38,13 @@
 			this.buttonEditData = new System.Windows.Forms.Button();
 			this.labelTablesCount = new System.Windows.Forms.Label();
 			this.buttonChangeServer = new System.Windows.Forms.Button();
+			this.label1 = new System.Windows.Forms.Label();
+			this.labelServer = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.labelUser = new System.Windows.Forms.Label();
+			this.groupBoxConnectionInfo = new System.Windows.Forms.GroupBox();
 			this.groupBox1.SuspendLayout();
+			this.groupBoxConnectionInfo.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// buttonEditTables
@@ -101,10 +107,41 @@
 			this.buttonChangeServer.UseVisualStyleBackColor = true;
 			this.buttonChangeServer.Click += new System.EventHandler(this.buttonChangeServer_Click);
 			// 
+			// label1
+			// 
+			resources.ApplyResources(this.label1, "label1");
+			this.label1.Name = "label1";
+			// 
+			// labelServer
+			// 
+			resources.ApplyResources(this.labelServer, "labelServer");
+			this.labelServer.Name = "labelServer";
+			// 
+			// label2
+			// 
+			resources.ApplyResources(this.label2, "label2");
+			this.label2.Name = "label2";
+			// 
+			// labelUser
+			// 
+			resources.ApplyResources(this.labelUser, "labelUser");
+			this.labelUser.Name = "labelUser";
+			// 
+			// groupBoxConnectionInfo
+			// 
+			this.groupBoxConnectionInfo.Controls.Add(this.labelUser);
+			this.groupBoxConnectionInfo.Controls.Add(this.label1);
+			this.groupBoxConnectionInfo.Controls.Add(this.label2);
+			this.groupBoxConnectionInfo.Controls.Add(this.labelServer);
+			resources.ApplyResources(this.groupBoxConnectionInfo, "groupBoxConnectionInfo");
+			this.groupBoxConnectionInfo.Name = "groupBoxConnectionInfo";
+			this.groupBoxConnectionInfo.TabStop = false;
+			// 
 			// MainForm
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.groupBoxConnectionInfo);
 			this.Controls.Add(this.buttonChangeServer);
 			this.Controls.Add(this.labelTablesCount);
 			this.Controls.Add(this.buttonEditData);
@@ -115,6 +152,8 @@
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			this.groupBoxConnectionInfo.ResumeLayout(false);
+			this.groupBoxConnectionInfo.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -130,5 +169,10 @@
 		private System.Windows.Forms.Button buttonEditData;
 		private System.Windows.Forms.Label labelTablesCount;
 		private System.Windows.Forms.Button buttonChangeServer;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label labelServer;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label labelUser;
+		private System.Windows.Forms.GroupBox groupBoxConnectionInfo;
 	}
 }
