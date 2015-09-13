@@ -20,6 +20,7 @@ namespace Berburger
 		
 		public static void LoadSettings()
 		{
+			config.Clear();
 			createDirectory(path_programFolder);
 			createFile(path_configFile);
 			

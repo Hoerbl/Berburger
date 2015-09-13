@@ -19,7 +19,7 @@ namespace Berburger
 		/// <summary>
 		/// Currently used connnection
 		/// </summary>
-		static SqlConnection currentConnection = null;
+		static SqlConnection currentConnection = new SqlConnection();
 
 		/// <summary>
 		/// Connects the SqlAdapter to a specified server
@@ -62,7 +62,7 @@ namespace Berburger
 		/// </summary>
 		/// <returns>True if connection is open, else false</returns>
 		public static bool IsConnected() {
-			return currentConnection.State == System.Data.ConnectionState.Open;
+			return currentConnection.State == ConnectionState.Open;
 		}
 
 		/// <summary>

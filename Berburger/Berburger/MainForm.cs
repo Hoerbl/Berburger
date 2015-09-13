@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Berburger
@@ -16,22 +9,40 @@ namespace Berburger
 	{
 		public MainForm()
 		{
+			connectToServer();
+			InitializeComponent();
+			loadDatabasesFromServer();
+		}
+
+		void loadDatabasesFromServer()
+		{
+			if (SqlAdapter.IsConnected())
+			{
+				var databases = SqlAdapter.GetDataTable(new SqlCommand("SELECT name FROM sys.databases"));
+
+				foreach (DataRow result in databases.Rows)
+				{
+					comboBoxDatabases.Items.Add(result["name"]);
+				}
+
+				comboBoxDatabases.SelectedIndex = databases.Rows.Count - 1;
+			}
+		}
+
+		void connectToServer()
+		{
 			LoginForm login = new LoginForm();
-			
+
 			while (login.DialogResult != DialogResult.OK)
 			{
 				login.ShowDialog();
+
+				if (login.DialogResult == DialogResult.Cancel)
+				{
+					break;
+				}
 			}
 			login.Close();
-			InitializeComponent();
-
-			var databases = SqlAdapter.GetDataTable(new SqlCommand("SELECT name FROM sys.databases"));
-			
-			foreach (DataRow result in databases.Rows) {
-				comboBoxDatabases.Items.Add(result["name"]);
-			}
-
-			comboBoxDatabases.SelectedIndex = databases.Rows.Count - 1;
 		}
 
 		private void buttonEditDatabase_Click(object sender, EventArgs e)
@@ -65,6 +76,14 @@ namespace Berburger
 		private void comboBoxDatabases_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			labelTablesCount.Text = SqlAdapter.GetResult(new SqlCommand("SELECT count(*) FROM " + comboBoxDatabases.SelectedItem.ToString() + ".INFORMATION_SCHEMA.Tables ")) + " Tables";
+		}
+
+		private void buttonChangeServer_Click(object sender, EventArgs e)
+		{
+			Settings.RemoveProperty("autoConnect");
+			Settings.SaveConfig();
+			connectToServer();
+			loadDatabasesFromServer();
 		}
 	}
 }

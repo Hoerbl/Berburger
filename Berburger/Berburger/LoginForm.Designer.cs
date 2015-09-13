@@ -35,6 +35,8 @@
 			this.textBoxUser = new System.Windows.Forms.TextBox();
 			this.textBoxPassword = new System.Windows.Forms.TextBox();
 			this.buttonConnect = new System.Windows.Forms.Button();
+			this.checkBoxSavePass = new System.Windows.Forms.CheckBox();
+			this.checkBoxAutoConnect = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -63,7 +65,7 @@
 			this.label3.Font = new System.Drawing.Font("Segoe UI", 12F);
 			this.label3.Location = new System.Drawing.Point(13, 62);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(80, 21);
+			this.label3.Size = new System.Drawing.Size(79, 21);
 			this.label3.TabIndex = 2;
 			this.label3.Text = "Password:";
 			// 
@@ -72,14 +74,14 @@
 			this.textBoxServer.Location = new System.Drawing.Point(138, 12);
 			this.textBoxServer.Name = "textBoxServer";
 			this.textBoxServer.Size = new System.Drawing.Size(147, 20);
-			this.textBoxServer.TabIndex = 3;
+			this.textBoxServer.TabIndex = 2;
 			// 
 			// textBoxUser
 			// 
 			this.textBoxUser.Location = new System.Drawing.Point(138, 38);
 			this.textBoxUser.Name = "textBoxUser";
 			this.textBoxUser.Size = new System.Drawing.Size(147, 20);
-			this.textBoxUser.TabIndex = 4;
+			this.textBoxUser.TabIndex = 3;
 			// 
 			// textBoxPassword
 			// 
@@ -87,26 +89,52 @@
 			this.textBoxPassword.Name = "textBoxPassword";
 			this.textBoxPassword.PasswordChar = '*';
 			this.textBoxPassword.Size = new System.Drawing.Size(147, 20);
-			this.textBoxPassword.TabIndex = 5;
+			this.textBoxPassword.TabIndex = 4;
 			// 
 			// buttonConnect
 			// 
 			this.buttonConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonConnect.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonConnect.Location = new System.Drawing.Point(203, 94);
+			this.buttonConnect.Location = new System.Drawing.Point(203, 101);
 			this.buttonConnect.Name = "buttonConnect";
 			this.buttonConnect.Size = new System.Drawing.Size(81, 33);
-			this.buttonConnect.TabIndex = 6;
+			this.buttonConnect.TabIndex = 1;
 			this.buttonConnect.Text = "Connect";
 			this.buttonConnect.UseVisualStyleBackColor = true;
 			this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
+			// 
+			// checkBoxSavePass
+			// 
+			this.checkBoxSavePass.AutoSize = true;
+			this.checkBoxSavePass.Checked = true;
+			this.checkBoxSavePass.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.checkBoxSavePass.Location = new System.Drawing.Point(12, 97);
+			this.checkBoxSavePass.Name = "checkBoxSavePass";
+			this.checkBoxSavePass.Size = new System.Drawing.Size(97, 17);
+			this.checkBoxSavePass.TabIndex = 5;
+			this.checkBoxSavePass.Text = "save password";
+			this.checkBoxSavePass.UseVisualStyleBackColor = true;
+			// 
+			// checkBoxAutoConnect
+			// 
+			this.checkBoxAutoConnect.AutoSize = true;
+			this.checkBoxAutoConnect.Checked = true;
+			this.checkBoxAutoConnect.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.checkBoxAutoConnect.Location = new System.Drawing.Point(12, 120);
+			this.checkBoxAutoConnect.Name = "checkBoxAutoConnect";
+			this.checkBoxAutoConnect.Size = new System.Drawing.Size(153, 17);
+			this.checkBoxAutoConnect.TabIndex = 6;
+			this.checkBoxAutoConnect.Text = "Auto connect to this server";
+			this.checkBoxAutoConnect.UseVisualStyleBackColor = true;
 			// 
 			// LoginForm
 			// 
 			this.AcceptButton = this.buttonConnect;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(296, 139);
+			this.ClientSize = new System.Drawing.Size(296, 146);
+			this.Controls.Add(this.checkBoxAutoConnect);
+			this.Controls.Add(this.checkBoxSavePass);
 			this.Controls.Add(this.buttonConnect);
 			this.Controls.Add(this.textBoxPassword);
 			this.Controls.Add(this.textBoxUser);
@@ -115,7 +143,6 @@
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.MaximizeBox = false;
-			this.MaximumSize = new System.Drawing.Size(312, 178);
 			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(312, 178);
 			this.Name = "LoginForm";
@@ -135,5 +162,7 @@
 		private System.Windows.Forms.TextBox textBoxUser;
 		private System.Windows.Forms.TextBox textBoxPassword;
 		private System.Windows.Forms.Button buttonConnect;
+		private System.Windows.Forms.CheckBox checkBoxSavePass;
+		private System.Windows.Forms.CheckBox checkBoxAutoConnect;
 	}
 }
