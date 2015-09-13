@@ -14,7 +14,11 @@ namespace Berburger
 {
 	public partial class EditDatabaseForm : Form
 	{
+		/// <summary>
+		/// Database which the user is currently editing
+		/// </summary>
 		private string database;
+
 		private bool showData = false;
 		private string[] columns;
 
@@ -30,6 +34,11 @@ namespace Berburger
 			loadTables();
 		}
 
+		/// <summary>
+		/// Show columns (data)
+		/// </summary>
+		/// <param name="database"></param>
+		/// <param name="columns"></param>
 		public EditDatabaseForm(string database, string[] columns)
 		{
 			this.database = database;
@@ -96,12 +105,39 @@ namespace Berburger
 			// color columns which are essential
 			foreach (DataRow dr in isNullable.Rows)
 			{
-				Debug.WriteLine("here: " + dr["COLUMN_NAME"]);
-				if (dr["IS_NULLABLE"].ToString() == "NO" && showData)
+				Debug.Write("checking color for " + dr["COLUMN_NAME"]);
+				if (dr["IS_NULLABLE"].ToString() == "NO")
 				{
-					dataGridView1.Columns[dr["COLUMN_NAME"].ToString()].DefaultCellStyle.BackColor = Color.LightCyan;
+					if (showData)
+					{
+						dataGridView1.Columns[dr["COLUMN_NAME"].ToString()].DefaultCellStyle.BackColor = Color.LightCyan;
+						Debug.WriteLine(": is essential");
+					} else
+					{
+						int rowIndex = getRowIndex(dr["COLUMN_NAME"].ToString());
+						if (rowIndex == -1)
+						{
+							throw new IndexOutOfRangeException("Exception 001");
+						} else
+						{
+							dataGridView1.Rows[rowIndex].DefaultCellStyle.BackColor = Color.Red;
+							Debug.WriteLine(" is essential");
+						}
+					}
 				}
 			}
+		}
+
+		private int getRowIndex(string name)
+		{
+			foreach (DataGridViewRow row in dataGridView1.Rows)
+			{
+				if (row.Cells[0].Value.ToString() == name)
+				{
+					return row.Index;
+				}
+			}
+			return -1;
 		}
 
 		private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
