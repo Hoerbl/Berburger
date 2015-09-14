@@ -120,7 +120,7 @@ namespace Berburger
 							throw new IndexOutOfRangeException("Exception 001");
 						} else
 						{
-							dataGridView1.Rows[rowIndex].DefaultCellStyle.BackColor = Color.Red;
+							dataGridView1.Rows[rowIndex].DefaultCellStyle.BackColor = Color.LightCyan;
 							Debug.WriteLine(" is essential");
 						}
 					}
