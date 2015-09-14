@@ -64,6 +64,11 @@ namespace Berburger
 			{
 				MessageBox.Show(ex.Message);
 				DialogResult = DialogResult.Abort;
+				if (Settings.Contains("autoConnect"))
+				{
+					Settings.RemoveProperty("autoConnect");
+				}
+				Settings.SaveConfig();
 				return;
 			} catch (Exception ex)
 			{
